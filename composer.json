@@ -5,8 +5,11 @@
     "require": {
         "openemr/oe-module-installer-plugin": "^0.1.5",
         "php": ">=8.1",
-        "nyholm/psr7": "^1.8",
-        "symfony/event-dispatcher": "^7.2"
+        "nyholm/psr7": "^1.5",
+        "symfony/event-dispatcher": "^4.4 || ^5.0 || ^6.0 || ^7.0"
+    },
+    "conflict": {
+        "openemr/openemr": "<7.0.0"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.75",
