@@ -1,5 +1,5 @@
 {
-    "name": "open-core-emr/oe-module-oce-cal",
+    "name": "opencoreemr/oe-module-calendar",
     "description": "Connect OpenEMR to OpenCoreEMR Calendar",
     "type": "composer-plugin",
     "require": {
