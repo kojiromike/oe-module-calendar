@@ -1,0 +1,1699 @@
+goal as [Music] there we go now i can start so our goal is part of
+0:06
+the opening first introduce yourself okay yeah so i'm stephen nielsen i'm one
+0:11
+of the open emr developers much like many of you um and i've helped
+0:18
+to create quite a bit of the module infrastructure as well as the
+0:25
+fire system and some other kind of oddities here and there in the open emr code base
+0:31
+um i'll do a little bit more advanced introduction once i start my presentation
+0:37
+but we i want to talk a little bit about the open emr community and kind of the
+0:43
+goals out of these trainings we're hoping to be able to do this um a training a meetup about once a week
+0:49
+once a month being able to go through a topic of interest to the community
+0:56
+maybe have one one or two longer or larger presentations maybe a
+1:02
+couple lightning talks you know three to five or five to ten minute um topics
+1:08
+about things that are in open emr things related to health care that are pertinent to open emr
+1:14
+just things that we can do to to get more connected um learn from each other
+1:20
+and and possibly even connect each other to resources whether that's for employment or work or other types of
+1:27
+things so that that's kind of that's our that's one of my goals and talking with brady
+1:33
+and some of the other kind of executive committees we have open emr executive committee members of open emr
+1:39
+is is the goal of kind of broadening our community and our developer outreach
+1:45
+so our hope is that you'll be able to join with us and and continue with
+1:52
+coming to these sessions and and even contribute you know whether giving that a presentation maybe it's a cool module
+1:57
+you built maybe it's something that you've learned about inside of openmr maybe it's something that you fixed and
+2:03
+you're like this is why i hated this in opening more and why i had to change it no things of that nature
+2:10
+so um again the you get out of it often what you put
+2:16
+into something so the more that you put into the community that i think the more that you're going to get out of it so that's
+2:23
+one of my main motivations of being able to give this presentation
+2:28
+on that note i wanted to just um you know give everybody a chance to introduce
+2:35
+themselves you know this first time around and and we'll have just a few minutes that we do that um
+2:41
+i think each meetup will give an opportunity for people to talk about hey i'm looking for work or i'm
+2:49
+looking for someone to hire or things of that nature um or you know
+2:54
+hi you know this is who i am so i just like to maybe give everybody just
+2:59
+if they want to if you don't want to that's fine but just give those who'd like to a chance to kind of introduce
+3:05
+themselves say this is who i am so i know there's a couple regulars on here so maybe some of
+3:10
+the new ones here so hey daniel why don't you go ahead
+3:16
+hey there hey guys i'm dan flieger um i've been uh programming with open emr for
+3:23
+i think since 2017 uh i started working with tony mccormick and i've been sort of doing my own thing
+3:31
+uh you know doing some things here and there for mi squared and for other uh customers uh on and off
+3:40
+and i'm really interested to hear more about uh modules because i've been sort
+3:45
+of playing around with it and i think i'm doing it but i'm not doing it the right way and i want to i want to learn how to do
+3:52
+it the right way um yeah and uh i may i've made some of my own
+3:58
+different modules you know i have like an sms thing for pediatricians uh that that you
+4:05
+know that i'm always constantly tweaking and at some point i'd like to make it portable so it's available uh to the
+4:10
+community and it always helps to have you know people look over code and things like that so
+4:17
+awesome thank you welcome anyone else okay i'll i'll go um so my name is john
+4:24
+purdy i'm director of i t r d at omega systems group um i'm not a developer more like
+4:31
+business operations and that sort of thing but and i was expecting my developer to be
+4:36
+on i'm surprised he isn't he's quite interested but we're interested in modules because
+4:42
+we're uh putting on a mass deployment of open emr or we hope to and expect to
+4:49
+uh over the the coming uh months and year and we see modules as being a
+4:54
+crucial part of our development strategy we have to do a fair bit of customization for the market that we're
+5:00
+in uh and we are also of course quite interested in the uh
+5:05
+um in creating an inpatient module and we have quite a few
+5:10
+pieces of information and we're well on our way to having at least some of the funding we need to do that and of course
+5:16
+that would be a module or probably a series of modules so yeah that's uh that's my interest in being here i just
+5:22
+want to understand this stuff at a high level you know uh and then you know it's our developer's job to
+5:28
+actually write the code and get it into the modules and stuff so that's why awesome welcome john thank you
+5:38
+anyone else i'll introduce myself my name is steve
+5:44
+klein um i think you guys are familiar with david eschelbacher i'm a friend of david's and we have a software developer
+5:51
+that is um wants to contribute so at a high level like the previous gentleman i just want to hear what's
+5:56
+going on and so we can get um just sort of get um tapped into what's going on and
+6:02
+more to come from that but um just wanted to listen in so appreciate you having me
+6:08
+awesome welcome welcome
+6:13
+you got time for one or two more if anyone would like to introduce themselves
+6:27
+yeah hello my name is uh kofi appiah i'm from ghana i i work with mr john
+6:33
+purdy the the last but one person who introduced himself yeah
+6:38
+we are we are looking into [Music] developing modules and then we
+6:44
+we tried what you've done and i really admire your work so we decided to join in today
+6:50
+and then to learn more and you know how we can extend the core functionality of opinion mr
+6:58
+awesome welcome welcome okay anyone else
+7:03
+final call
+7:14
+okay well i will get started okay now i'll i will stop um as we go through
+7:22
+from time to time to ask if there's any questions or to answer any questions that are in the chat
+7:28
+if you are here um on your zoom device if you could put any questions as you're going through the material into the chat
+7:35
+box um i will then go through those as i can if there's something brady maybe
+7:42
+you or jerry if you could keep an eye on the chat or stephen wait just let me know like if
+7:47
+there's something kind of time sensitive that we need to get to then i can address the question at that
+7:53
+point in time um so let's get started i'm gonna share my screen
+8:03
+okay and we're gonna come over here
+8:17
+okay so um as i mentioned a little bit earlier i'm steven nielsen i've been
+8:24
+building software since i was 12 started with open source
+8:31
+back in the days of early days of linux my dad was the vp of a linux company
+8:38
+called caldera they were trying to compete with red hat at the time red hat beat them to the ipo
+8:45
+and caldera faded into exist into non-existence and its remnants ended up in losses but
+8:52
+i went on a different pathway so i've been involved in all kinds of
+8:58
+different architectures especially a lot of startups mid-tier a lot of things where i've been
+9:03
+able to leverage open source software then i found myself getting into the mental health space
+9:10
+and um and that got me in a roundabout way introduced into open emr about three or
+9:17
+four years ago when i came into open emr i said wow there's a lot of stuff here
+9:23
+but it's scattered all over the place i said i'm used to working in kind of an
+9:29
+environment like drupal an environment like a little bit like wordpress or
+9:36
+other places where i can go in and i can make changes but i'm not going to break stuff
+9:41
+you know or if i go in and i change stuff um you know when the next version of the
+9:48
+software comes out i'm not going to have to be frantically scrambling around trying to update my stuff or i'm missing
+9:54
+out on all the security fixes because my code isn't you know there
+10:00
+and my code my code is messing up with the
+10:05
+core so it seemed that there was quite a bit of patterns of where you know developers
+10:11
+would go in and add stuff in and you know hide it under a global flag
+10:17
+but it created all kinds of clutter and sometimes things you couldn't couldn't you know just hide away under a
+10:23
+global flag so i looked at that and i said well we've got these zen modules you know
+10:30
+we've got these modules this kind of hierarchy in the modules but all they really do is load in iframes
+10:36
+and display content inside of an iframe so i could have you know my own kind of
+10:42
+independent um piece of code but i can't really go in
+10:47
+and modify you know if i want to have something displayed on the calendar i can't do that if i want to do
+10:54
+um if i wanted to go and maybe change up how the login logic works i can't do
+10:59
+that right i need to be able to modify core code without breaking my stuff
+11:05
+right so what's a module well there's all kinds of different terminologies and
+11:10
+there's you can argue with different people but i view a module is a cohesive
+11:16
+package of functionality that can operate independently of openmr right
+11:23
+that you can turn it on or off you can turn on the functionality or you can turn it off
+11:29
+right and like as i mentioned before it's a way of enhancing open emr core
+11:35
+right and it's essentially the the purpose behind the module is for you to be able
+11:41
+to connect at specific points in the code wherever wherever like i said in the
+11:47
+login code or whether that's in the um the calendar
+11:53
+when something happens i want to be able to go in and do something open emr maybe i want to spit something out to the page
+11:59
+maybe i want to send an email maybe i want to log some additional information i want to do something
+12:06
+that doesn't tightly couple me to everything that's inside of openmr right
+12:12
+so by putting things into a module it allows you to be able to package up all
+12:18
+this cohesive functionality that can be turned on or off or given to
+12:23
+a customer or given to the broader community and it allows open emr to meet more um
+12:31
+needs of people different workflows jerry and i talk about this all the time there's so many different workflows
+12:37
+people are using open emr in so many different ways ways we can't even imagine and trying to throw all that together
+12:43
+the kitchen sink together it just creates a mess but through a module i can go in and add
+12:50
+functionality that's specific to therapists or that's specific to you know
+12:56
+nurses or occupational therapists or whatever specialty that's there
+13:02
+whatever market that i'm targeting i can have that in just a module another purpose behind the module is it
+13:09
+follows solid code maybe some of you software developers are familiar with the solid mechanism where codes open for
+13:16
+extension but it's closed for modification right so this allows open emr to
+13:21
+continue to work independently as long as it maintains that contract of saying here's an event here's a piece of here's
+13:29
+a way i'm going to call you i'm going to talk to you and i'm not going to i'm gonna do my
+13:34
+very best to keep that the same over many years and allow your code to then function
+13:41
+but openmr can go and change everything around that event you know up above or
+13:46
+below in the execution flow but your stuff can continue to operate just fine
+13:53
+okay so like as i mentioned earlier originally
+13:59
+we had zen modules now then went out of business and it got adopted by the
+14:05
+community into this laminus modules you know they renamed rebranded themselves as laminas
+14:12
+right and when i when i looked at it there was this concept of of the laminates and i
+14:18
+looked and said oh well this is using the laminates framework but this is so
+14:24
+complicated um it's very enterprise which is good i mean open emr is in many ways is an
+14:31
+enterprise piece of software but there's so many different um kind of higher level concepts that you
+14:37
+need to understand in terms of your presentation layer in terms of dependency injection and all kinds of
+14:44
+other mechanisms um i said what if people just want to have a simple piece of code right and they
+14:50
+want to just run their module and and not have to have all this extra framework around it
+14:57
+well you know the we had these things called custom modules but the code was broken
+15:02
+[Laughter] it didn't even work so i went in and
+15:07
+working with jerry we did an example with the fax module and we built these custom modules right
+15:13
+this custom module now i'm going to do we will do a follow-up presentation where we'll dive into
+15:20
+into the laminus modules we'll cover i'll cover that a little bit today but we'll do a more advanced topic because
+15:26
+we'll have to talk through things like dependency injection we'll have to talk through hot loading and some of the
+15:33
+caching and some of the service containers that are there that are involved in the laminus modules
+15:40
+there's a lot more concepts involved in order to do that module right or to do those modules right
+15:45
+and it is a great framework if you're going to build something that is going to be i
+15:51
+don't know 100 000 50 thousand lines of code maybe even a couple of hundred thousand lines of code where the framework is
+15:57
+gonna force you to follow really good design uh patterns
+16:03
+that work in large teams right but if you're doing something simple couple week project couple month
+16:10
+project um this is where custom modules will really shine because you can have the
+16:15
+flexibility of doing whatever you want right and again if you wanted to in a custom
+16:21
+module you'd be you could even include something like laravel i know somebody mentioned that on the forum
+16:26
+you know go and bundle in a laravel framework you could do whatever you want um
+16:31
+inside of custom modules so let me let me talk um well first off uh
+16:38
+in terms of any questions anybody have any questions up to this point um of what i've discussed or talked
+16:43
+about i can't see the chat
+16:50
+the chat's empty you're here okay i'll monitor it okay okay so let's talk a little bit about um the
+16:58
+life cycle of launching okay so where
+17:03
+where do modules begin where are they born you know well when when a programmer
+17:10
+and global.php gets connected get together you know a module can be born
+17:16
+right so global.php those of you have done quite a bit of development in
+17:23
+open emr you know it's included at the top of pretty much every page that's where our globals are pulled from the
+17:28
+database where everything is instantiated global.php is going to kick off this module process
+17:34
+all right and after it's loaded up all those globals it's going to instantiate a class called
+17:39
+the modulus application and it's going to instantiate this inside of an open emr kernel
+17:46
+you can think of the kernel as a container
+17:51
+essentially the the main main dependency injection container
+17:57
+if if you want to if you know much about that right kind of the core gem of where
+18:03
+where we'll move a lot of things eventually into but the kernel is going to be is going
+18:08
+to instantiate this module application right and because everything was kind of
+18:14
+tightly integrated into the laminus framework the modules application is going to instantiate the the laminas
+18:19
+framework and then it's going to first launch all of the laminus modules right i'll jump into the code in just a
+18:25
+second just to show this and it's a in a little bit at that point it's going to load up um
+18:32
+our application.config.php file and it'll go through all of our core
+18:38
+modules anything that's been marked as active in the database it will load and then it's going to instantiate
+18:45
+that laminas module by calling calling its init file right
+18:50
+let me just show that a little bit in the code here so we're going to come here to our
+18:58
+then module
+19:03
+we're going to go here to our config and i'm also going to open up
+19:16
+okay so globals does its thing and let me zoom
+19:21
+up on this here
+19:28
+i don't know if it's showing up for is the screen yeah sorry i stopped my screen share yeah i needed
+19:35
+uh there we go okay how's that it looks great it looks great here there's this box in the bottom right i haven't oh
+19:41
+it's gone it's gone yeah okay is that good is that text look big enough for people right there
+19:47
+yeah yeah that works it works okay okay let's
+19:55
+okay so globals.php is going to go and do its thing run run through a bunch of code
+20:02
+and then it's going to instantiate this modules application
+20:07
+passing in the kernel and a bunch of file paths okay
+20:13
+modules application is going to go in and instantiate a
+20:19
+bunch of lamina the laminate framework right with the service manager and event
+20:24
+dispatcher and a bunch of other stuff that it needs in order to run the zen modules right
+20:32
+i don't know if this is too big a little bit harder to see
+20:38
+but it's going to go through and grab all of our modules where they're active and all of that stuff
+20:45
+and then it's going to run after all the laminate modules have been run it's going to bootstrap our custom
+20:50
+modules okay now the custom modules
+20:57
+let me just jump into that life cycle a little bit more
+21:03
+the custom modules are going to be retrieved by their install installation sequence
+21:09
+right so the order that a user installs the module is the order that it will run
+21:15
+okay and and again as i mentioned it's important to note the custom modules are
+21:20
+loaded after the opening of our laminate module so the module application is going to
+21:26
+loop through each activated module and it's going to search for a very specific file this
+21:31
+[Music] openvmr.bootstrap.php file right we can see that here it's going to
+21:37
+grab all the modules that aren't a zen module that's what that is here ordered by the
+21:43
+installation and the date right and then it's going to go and it's going
+21:48
+to look for this custom module name openamr.bootstrap.php
+21:57
+and then important for you to to know is that these modules are loaded in their
+22:02
+own kind of isolated context so um if anyone's used my skeleton module
+22:08
+we'll jump into that second it's going to have a the event dispatcher in scope
+22:15
+inside this function so we're going to include the module bootstrap file
+22:21
+i'm at the path and it's going to have the event dispatcher in its local scope because of the way that's
+22:27
+wrapped inside of the function okay and that makes it so that one module
+22:32
+isn't polluting the variable scope of another module unless you like hijack the globals array
+22:39
+which don't do that please [Laughter]
+22:44
+okay so that that's how the how those modules
+22:50
+are um how how those run in the life cycle so what does that mean well that
+22:55
+means that you have available on a module anywhere where the globals.php file is instantiated
+23:02
+so if you go and you look and you say well you know is my module gonna have access to
+23:09
+let's see is it going to have access to the login
+23:14
+page well if i go up to login and i look here and i come up
+23:20
+right i can see it's got the global.php so my module is going to run in here right is
+23:26
+my page going to run on you know whatever the calendar or anywhere anywhere where this global.php file is
+23:32
+instantiated your module will execute and not just your module all the modules that are activated are going to execute
+23:40
+okay from a from a customization point of view if you're wondering where can i
+23:45
+actually you know modify things that's where your module has access
+23:52
+okay so i want to talk about the life cycle of
+23:59
+how modules are installed um and this will bear this will play into effect when we jump into a
+24:04
+demo i'll be doing a live demo of going through going through a module okay
+24:10
+so the installation of the module is actually handled by a module kind of funny that way so the laminate installer
+24:17
+module um has three parts to it you may have seen this when you've been activating or deactivating modules so it
+24:23
+has a register um step has an installation step and it has an enable
+24:29
+step okay on the registration um step these are
+24:36
+done by going to the modules in the manage modules menu and the register step is going to look
+24:41
+for a specific file it's going to look for this info.txt file and that info.txt
+24:47
+file is going to grab the human readable name of your module and that's going to that's what gets displayed on the
+24:52
+registration screen so if we come here
+25:00
+go i need to close that for a moment if we come here and we look at our
+25:06
+module registration which i blew away my docker image
+25:13
+so that's over here we come here to our manage module and
+25:18
+i look over here on this unregistered so these are all the modules that are not installed
+25:24
+or even registered with the system and this name is coming from that
+25:29
+info.txt file whatever is in that file is what's going to be displayed here if you don't have
+25:35
+an info.txt file it's just going to use the directory name of the module
+25:46
+so what that registration does when you click that register it's going to create
+25:53
+the module record in the database right until you do register it doesn't even
+25:59
+show up like open emr isn't even aware of it it's not it's just you've taken the file
+26:05
+and you've plugged it down in the file system doesn't only knows that it's there and
+26:11
+it has this name but it's not installed in the database has no other knowledge of it
+26:17
+when you actually go in and you hit that register open emr is going to move it over here
+26:22
+into the register tab and it's now available for installation all right
+26:28
+so in the module framework the installation process is where you
+26:34
+install data this is where your database fields or anything that's going to persist your state
+26:41
+that's going to persist from from page to page is is stored
+26:47
+so that is going to that install process and here
+26:55
+is going to look for two specific files in a couple different places so it's going to look for a table dot sql
+27:01
+or an install.sql file inside the root of your custom module directory if you can't find it in the root it's
+27:08
+going to look inside a sql folder inside the root of your module for a table.sql or an install.sql
+27:15
+eventually this is going to be able to have to do kind of version upgrades similar to what
+27:20
+we do in open emr so the 5.0 to zero upgrade to the 600 file
+27:26
+we have that support for the laminates modules we don't have that yet for custom modules
+27:32
+okay what's important to note is that these sql files uses the same um open
+27:40
+emr database language as what we use in sql in the sql upgrade script
+27:46
+so if you look at our sql files what we have here for our upgrade where we have this
+27:53
+syntax if not table if not row kind of this domain specific language this dsl
+28:00
+that open emr has built um all of this is available to you inside your table.sql file
+28:07
+for being able to add tables you know add in columns and all of that
+28:14
+so you can check against open emr you know do i have this field do i have that
+28:19
+what version am i on essentially and then add stuff on your module accordingly
+28:27
+okay um like i said we'll we'll be enhancing that so that we you can have additional
+28:33
+files that are specific to individual versions of open emr
+28:40
+okay enable um we will eventually change this i haven't gone in and changed this but
+28:46
+right now when you install um all it does is do the database it doesn't activate your module so you have
+28:52
+to then go in once you've installed it and actually enable it this is yeah
+28:58
+every time i do this i get annoyed and said i'm gonna fix this one these days so coming and looking at the module
+29:04
+again i have to hit install and then i have to hit enable it needs
+29:09
+to be one step but so now my modular is enabled um it's had that active flag in the
+29:16
+module direct database table switch from zero to one my module's now active
+29:22
+okay what that means by being active is that it's going to it's going to run every
+29:28
+single page load every time that this thing refreshes that module runs every time this
+29:34
+refreshes that module runs right every single page module will
+29:39
+execute okay [Music]
+29:45
+any questions up to this point
+29:50
+looks like there's a question on chat i'm not sure it's a question
+29:56
+let's see let me come back to that yeah we got a couple questions
+30:03
+let's see what the finances
+30:15
+[Music] um well yeah i mean those are good examples so i
+30:22
+guess i'll just read it um peter and then um if anybody has any questions so he
+30:27
+from a nonprofit programmer's point of view he wanted to point out that it they have to find interfaces that take
+30:32
+defined inputs and create defined outputs while providing some function in between the strength is that they don't
+30:39
+mess with anything else an example is a municipal subway system you buy a ticket input a passenger at a defined location
+30:45
+with some parameters and the passenger is output and define defined location
+30:50
+what happens in between is not the passenger's concern a calendar appointment pop-up is another you open
+30:55
+it it presents a way to pick up a date and outputs a date to the calling program of course programmers understand this
+31:01
+but non-programmers might need the framework i'm a non-programmer with an exposure to programming it's not useful
+31:08
+so yeah it it makes in most cases that's true here but a
+31:13
+module can actually interact with other modules but the nice thing is like you're saying it's all fully
+31:18
+encapsulated right it it allows you to build code that you don't have to worry
+31:24
+about or you know there are no side effects as as we like to call it um that when i turn
+31:31
+off that module everything dealing with if i had a calendar module that we moved all the calendar systems into and i
+31:37
+turned off the calendar module everything dealing with calendar is gone right i don't have to worry about the
+31:43
+calendar messing up something that's over in the billing system you know because the calendar is turned
+31:48
+off right so um yeah
+31:54
+so um i i so let's suppose that we are making changes to
+32:04
+did i lose my internet yeah i think daniel will cut out um can you hear me
+32:10
+okay i can hear you now i said well you're making changes too and then you cut out oh i'm sorry uh so let's suppose
+32:16
+we're making changes to the patient demographic screen and i want to either modify one of the
+32:23
+widgets or add a complete new one is that necessarily
+32:28
+the best thing to use a module for or would we make
+32:34
+chain or or is the approach to make changes to the native code in that situation and i guess for example
+32:40
+would be when you display like the patient's name and birth date let's suppose you want to display their
+32:46
+weights and the last time their weight was taken yeah um i mean to me that's that's
+32:53
+that's perfectly fine for now as far as the weight and and things like that
+32:59
+um i don't see it would be interesting to know if that's something that's generic
+33:04
+enough or that everybody would want if you think you know is every open emr user going to want this feature
+33:12
+is it kind of a core need especially like if we're meeting certification requirements um does it have to be on for everyone
+33:19
+then that goes into poor if it's like well this is
+33:24
+only going to help like maybe weight might be something that would go into core but as far as
+33:29
+adding sections to the patient demographics um unless it's like a meaningful youth certification to me that's perfect game
+33:36
+for for a module you know that's something that you would want to be able to add and extend and all of
+33:43
+that yeah so so one example would be
+33:48
+uh maybe displaying a list of an sms conversation
+33:54
+uh and and that's in the widget and you can click on the view and you can expand it and you know you you have two things
+34:00
+uh you can add it to the message widget which is on the main thing or you can add it to one of the side widgets
+34:07
+right and and i guess it depends so if i were to add a widget like you know where
+34:13
+you have the immunizations um and if i wanted to put let's say uh sms history or or the most recent like
+34:20
+four or five sms messages would that be reason for a module or would that also be something that we would put into core
+34:28
+if it's not for everybody i mean i would say it can all go into modules
+34:35
+eventually if you look at the way that laminus the laminus framework or the symphony framework or others work like
+34:42
+their entire application is built using modules everything is a module and that's what peter mentioned in this chat
+34:48
+is that everything um kind of builds upon each other via modules
+34:53
+right so i mean if i had if i had another 20-man team and a million dollars i
+35:00
+would re-architect open emr so that everything was a model right so that you could turn into turn off
+35:07
+different functionality so i mean with your example with the sms if you're adding widgets
+35:14
+i think that initially i would say put it into a module um if it's something that's going to
+35:20
+benefit everybody and you see that this is working then yeah we'll bring it into core and if you already have it as a
+35:26
+module then most likely what we'll do is we'll put it into core as an always loaded module
+35:33
+so sort of what i've been doing to sort of maybe prepare to actually do the module
+35:38
+the right way is i've been taking a lot of the custom code and i'm trying to avoid putting a lot of custom code into
+35:46
+like the core open emr code so now what i'm doing is i'm separating it and basically um
+35:52
+you know so when i'm upgrading from like 501 to 600 i'm bringing in the custom
+35:58
+code and then creating a module and then copying those files into the module themselves and
+36:05
+then changing let's say the the menu.the standard menu.json file
+36:11
+and it's probably it's not the best way to do it unless i fully understand what
+36:17
+we're doing here today and i'm just sort of and i'm seeing other coders do sort of make the
+36:23
+same mistakes uh that i'm making and uh and i'm wondering if anyone else is making
+36:28
+custom code or have they done the same thing uh especially the folks that are here that
+36:34
+don't fully understand how to do modules the right way so so let me let me walk through i think now is a good
+36:41
+time we've gone through kind of the core um kind of underpinnings the framework and
+36:46
+foundation of the module let's dive into an example okay um an example module using my skeleton
+36:53
+framework that i have out there okay and i think that as you see that you're going to see
+36:59
+oh you know here's where i want to do i want to move some kind of core code into
+37:05
+into the module and here's how i can connect that okay so yeah
+37:11
+um let's go back to sharing my screen okay
+37:16
+so let me just quickly say and you're gonna see this this is might be review for
+37:22
+some of the people who attended last week but how is your code actually going to
+37:28
+connect via modules and that's going to be through the event dispatching
+37:33
+right in in the event dispatcher when something
+37:38
+happens in open emr you want to say you want to connect to
+37:43
+the um yeah so when something happens in openmr it's going to fire off an event and
+37:50
+say something happened and at that point your module's going to have the opportunity
+37:55
+to step in and do stuff the two types of things that can step in is you know an action i want to just do
+38:03
+something or i want to change some value inside of openmr right a name or the
+38:09
+weight as you were saying to display what's displayed you know on top of the patient demographics
+38:14
+right and i'm just going to quickly mention this and then we're going to jump into the example so the way that your code is
+38:21
+going to connect is by adding a listener to using some kind of
+38:28
+key key name and a callback that's going to call into your code and
+38:34
+have it do something right and in open emr how we actually say hey
+38:41
+this is what you can do we're going to fire off this we're going to fire off saying that the menu updated this comes
+38:47
+from the menu system the menu updated you can come in and change the menu using this updated menu event
+38:54
+and i'll show an example of that going through the code okay so let's let let me go and this
+39:03
+example here and what we have here is this
+39:08
+skeleton if you if you have no idea how to make modules and have not haven't
+39:14
+been able to make any modules successfully i'd say clone my skeleton project and then tweak it right go in and tweak
+39:21
+it from the examples of what you're going to want to do so in this case
+39:27
+i'm going to come into open emr so
+39:33
+this is my open emr root directory and the modules are going to live in the
+39:39
+custom modules live inside this interface modules custom modules directory here
+39:44
+okay in this case i have this module that i'm just going to
+39:50
+remove and we're going to clone it again well
+40:06
+okay so i have that module now
+40:14
+which is going to show up here in my code developer
+40:19
+okay we're looking at the module directory structure what i have here here's my
+40:26
+info.txt file that i was talking about here's a database that's going to be
+40:31
+installed this database table this mod custom skeleton records
+40:36
+right and here's my bootstrap file
+40:41
+which is right here i'm actually going to fill that text down just a little bit
+40:51
+that's still good enough for everyone to see
+40:56
+yep okay so this is our bootstrap file that's going to be loaded on every page request
+41:02
+in my skeleton now in this case i'm going to send in my event dispatcher
+41:07
+and i'm going to send in the kernel here for my for my project
+41:15
+let's go here and it's going to load up source bootstrap okay
+41:23
+and it has this file here
+41:28
+it does a bit of constructing and then it's going to actually say i want to listen in to all of these events
+41:34
+right i'm going to listen into some global settings i'm going to listen into a menu
+41:40
+to some stuff on the pages and to the api and let's just
+41:46
+install that and show you what that looks like
+41:53
+and i realized that we got about 15 minutes so i'm gonna try and go fast
+42:00
+now on a module some of you may have run into this problem before um for those of you who have tried making modules and
+42:06
+you've run into problems and you say well my module like i'm trying to have it use the autoloader
+42:12
+and it's not working and so i don't have i don't it's not finding the bootstrap file
+42:19
+and so i just have to go in and manually use that
+42:28
+manually include it right um because it's not when a custom module
+42:34
+doesn't work on the autoloader well if you want to get around for development purposes get around that
+42:39
+problem um the way that you do that is with this
+42:44
+the composer file so if you come here to composer you can see that it's got this
+42:50
+autoloader here for the open emr text and all of that so if we want to
+42:56
+if we want to load our module then we're going to
+43:08
+i'm going to just copy this file over here
+43:14
+we're going to add in our namespace here our custom module the namespace that i
+43:20
+defined up here open emr modules custom module skeleton get rid of that and i'm going to say
+43:27
+this is where the module folder lies in if your module already has um some key
+43:34
+some keywords that are installed in it and you install it using composer instead of like plopping it into the
+43:39
+file system you don't have to do this step but this is just something if you have the code that you get cloned you just
+43:45
+pop it into the file file system okay and then at that point i have to
+43:55
+reload the because i'm running this docker i have to run this command but i
+44:02
+have to reload the um i have to generate all of the
+44:09
+autoload configuration for composer and then that will go through and make it so that my code loads and i don't
+44:15
+have to do requires everywhere okay so i'm going to come in here on my
+44:22
+unregistered and i'm going to here i'm going to register my module
+44:29
+right i'm going to install my module that installed the database
+44:34
+that's now fresh installed we're gonna
+44:51
+you see that my mod custom skeleton records table is now there in the database that got installed just fine
+44:57
+through that install now i'm going to enable it okay so if i go to when i enable it and i
+45:04
+come here to my globals one of the things that this module does is it says i want to have some configuration that
+45:09
+shows up here i now have in my globals this configuration
+45:14
+that shows up automatically if i turn off my module disable it
+45:20
+all right reload the page you can see skeleton modules just before portal
+45:25
+and here module is gone all done turn it on again
+45:33
+and go here
+45:38
+and there's my module again all right now i'm going to just add
+45:47
+i'm going to just enable all this these features and then we'll go through them one by one and show examples of the module so in
+45:54
+this case i'm going to let the skeleton module override twig files in the system so my module anywhere where we're using
+46:00
+twig the module can reach in and replace that twig file um anything that's inside of openmr you can
+46:06
+replace it with your own opening your own module 3 file so for rendering on the presentation
+46:13
+level layer i'm going to enable it so that i can you know it'll show my menu button and
+46:18
+then i'm also going to jump into the main open emr body page everything that
+46:23
+is on this this window that you see up here and i'm going to add my own style sheet and my
+46:31
+own javascript file and that will insert a footer at the bottom of the page
+46:36
+okay we're just going to save all that
+46:41
+now because the way that module works uh to see the footer and everything i have to log out
+46:47
+now if you notice i now have a module skeleton enhanced login page
+46:54
+i replaced the login page so if i wanted to come in here and say and have my
+47:00
+module override that login page let's come in here to my templates login
+47:10
+here's my core login i just wanted to say
+47:19
+my login page is now what's up right so
+47:24
+whatever i want i can come in and i can customize um that template
+47:29
+using all the data that's injected through through the system for my login page
+47:36
+right from the module let's look at the other example and then we'll go through so you can see here
+47:43
+i've now got my awesome footer it's being injected via javascript and style via css
+47:48
+i'm going to just close that right and coming here to my modules i now have a menu option here custom
+47:55
+module skeleton right and i can load up my own kind of application or do whatever i want maybe
+48:01
+i want a chat thing here maybe i want something for telehealth or whatever example and here's my global values that are
+48:08
+being pulled from that administration globals so this is all doable and i have not modified anything in core
+48:16
+this is all just inside of a module to be turned on and off and all of that
+48:21
+because of the way that the module is written okay so let's look at each one of those
+48:28
+examples one by one okay to give you kind of an idea of the things that you can do inside your
+48:33
+module okay so in my bootstrap i'm going to come here and the big thing here is my
+48:40
+subscribe to events
+48:47
+so let's look at the way that the um the global setting works okay
+48:52
+so global settings says i want to be notified
+48:57
+whenever the globals have initialized right i want to be able to
+49:03
+add my do something and add my global values so if i come here and i say well you know
+49:09
+what where is this event at where's this thing at
+49:14
+so i come here and look i'm using it a couple places but if i come here to global i want to look for where that
+49:20
+dispatch is so this dispatch is using the goals right
+49:26
+and it says after we've gone and we've created all of these global values inside global.inc.php
+49:33
+i want i'm going to call out to everyone who's listening if no one's listening
+49:38
+you know it's going to spend a couple microseconds looping through an empty array and return
+49:45
+so the penalty of if no one's listening is pretty minimal
+49:50
+but it's going to fire off this event and saying here's here's um the globals
+49:57
+right here's the global metadata and some other specific global data that you would need for modifying these tabs
+50:03
+right and then that's going to be fired off so it loops
+50:09
+through and finds my module and says oh that module has a callback it has a
+50:14
+function that i'm going to execute so it
+50:19
+fires that off this points to the current class which is the bootstrap class
+50:24
+and it's going to find a public function has to be a public function because the dispatcher has to be able to
+50:30
+get access to it it's going to find the public function and get that event
+50:37
+so i get the event i grab the global service event
+50:42
+object from that event and i'm going to create a section so if you look at it you want to know what
+50:48
+methods are available in global services you can see that global services has a
+50:53
+save method it has a create section for being able to add globals append a section
+50:59
+get the metadata and other pieces like that okay
+51:05
+so coming back to bootstrap so i'm going to create a section and i'm going to put that section before portal so again
+51:12
+coming back to our global let's look at this so i'm going to get that section and i'm going to come here to my
+51:19
+skeleton module and you can see that it's being placed before portal right and i called it skeleton module if
+51:25
+i wanted to i could call it skeleton module 2 right and we'll reload this
+51:43
+so it's now called skeleton module 2 right and it has these values
+51:49
+so in here um these were just some helper methods just for good coding styles i'm going to
+51:54
+minimize that but i'm going to grab come down here to this
+52:00
+global section once you
+52:09
+and here on my globals config i have these global options i have these are my different configuration values
+52:15
+for text encrypted whether i should allow the tweak template the menu button the body foot each of those individual
+52:22
+values so i'm going to set up my options what's the title what's the description what
+52:27
+kind of type is it you know for a text whether it's an encrypted field a boot boolean field
+52:33
+check box and all of that right we can see that here's our check our boolean here's our
+52:38
+our encrypted value right and it's going to go through there each of those values from my
+52:44
+config object and it's just going to append these to the section right
+52:49
+giving it the title the type the value the description and whether this is the user setting or not for the goal
+52:55
+right and now you have your own connection into open emr for
+53:01
+configuring any any global values for your module
+53:08
+so that is that example another another example that i wanted to
+53:14
+go through was and this i just only show the i only show the menu and the template if
+53:21
+if you have these two options filled out in the example so let's go and look at the menu
+53:29
+so in here in the menu i'm going to say well did my menu enabled again
+53:34
+hey i want to be notified anytime the menu updates and when i'm notified
+53:39
+go through and add my custom module menu item right
+53:45
+i come into my custom module menu and that menu has access to
+53:51
+that event has access to the actual menu that's being created from the json file right
+53:57
+that we used to use to modify menus in the system right
+54:02
+and i say i want to target the this specific
+54:08
+mod i want it to be underneath the modules menu right so i may have to go if i don't
+54:14
+understand how that menu is structured i may have to come and look at this and look at find usages right and say where
+54:21
+is this instantiated what is the piece we'll get better at our documentation
+54:26
+but for now a lot of it helps just go and look at the menu and say well what's being
+54:31
+passed in into this menu parsed what do i have access to that i can
+54:36
+modify right and it's going to come through and run this menu in entries updated and the
+54:42
+menu entries is going to generate the labels and the children and all of those pieces right
+54:50
+but if you don't if that's confusing and reading that code is hard you know again just modify tweak the tweak the um
+54:57
+example the skeleton file and you can you can get a feel for how that works
+55:02
+so in this case we're gonna go out of main menu and come back to bootstrap right
+55:08
+so here i'm going to go through and and say this is where i want it to go to my interface modules custom modules
+55:16
+public sample index which is over here right i want it to go to that public sample index
+55:23
+right here that file right there and it doesn't have any sub menus so go
+55:29
+ahead uh so can we go back up there because this is actually a question that uh was
+55:34
+put out in the forum quite a few times and never really answered and i sort of learned uh through
+55:40
+uh trial and error that you know the json file in the standard.json
+55:47
+file so we have the target and we have the menu id so the menu i i kind of feel like uh
+55:54
+the json file has it uh if you
+56:00
+if you have different targets it opens up different windows right so if you wanted to say let's say um
+56:09
+change i'm just trying to think of something offhand if you want to have certain
+56:14
+reports that always had its own tag you could give it a unique target name
+56:19
+yeah yeah the target i mean just like the the html target right it's going to go to a
+56:26
+specific um you know window name or window tag right
+56:32
+and so if you make any manual we'll always go to that sorry go ahead oh so if you make up your own three
+56:38
+letter thing it will always open up a new window and if you have two reports
+56:44
+that share the same target name it will occupy the same window if one of
+56:49
+those reports is open and then if you try to open up the other report that that owns that target name also it will
+56:56
+just replace that's my understanding yep
+57:01
+and then what's and then the menu id so that one kind of confuses me um also
+57:08
+because when you open up the standard.json file if it's in succession
+57:13
+um i feel like the menu id is sort of redundant
+57:19
+um it may be except for when you're working with events right
+57:24
+because we key off of the menu id to know where to add things to
+57:30
+right but but i guess it's not redundant in this case when you're dealing with modules yep
+57:36
+okay that makes sense okay um
+57:42
+and there are there are two menu events that you can use one for when the menu is first created and another one where
+57:48
+it's been after it's been um after its permissions have been checked so i'll just throw that out there as far
+57:55
+as an implementation okay i wanted to go through um
+58:01
+you know we're getting we're at the top of the hour but i wanted to look i wanted to talk about
+58:08
+i think something that we often want to jump in and do is modify
+58:13
+things via javascript and so let me just quickly go through the register template events okay so we
+58:20
+went through menu items we went to the template events or we're going to go through template events right now
+58:26
+so we have access to on this render event again if you're trying to figure out
+58:32
+um where like what can i modify in the system let's just go here to render event
+58:40
+so if we come here and source into my events folder let's drop a
+58:46
+comment out of the way source events i have listed here all these various events right
+58:54
+and appointments and core and facility and name and i say okay you know you
+58:59
+know we have access to this render event that's inside the main tab right
+59:05
+we're trying to make sure that that this corresponds to the folder structure that we have up
+59:11
+above or at least related appointments is going to relate to anything to do with the calendar
+59:16
+right main tabs is anything that's related to these main tabs right
+59:22
+so this main tab has its render event which allows you to insert things
+59:30
+before anything else in the body is there and after anything else is in the body right so if i come here and i look
+59:37
+at find usages and i come and look at my dispatch and i can see that this is in main the
+59:43
+main tabs control window and there's a bunch of code here
+59:49
+we have our body tag at the very top of the body tag it's going to fire off an event saying hey anybody listening do
+59:55
+something whatever you want to do just do it here right and it will loop through all the
+1:00:00
+different event listeners and those event listeners can be silent and do something on the background
+1:00:06
+um or it can output stuff to the screen right
+1:00:13
+and in this case we do it here and the reason why we're doing this versus like the twig files is because this isn't
+1:00:19
+twig yet right if it was a twig then you could come in and you could you know replace certain things without having to
+1:00:24
+do the events right um but here we've got our render event
+1:00:31
+and so that's going to dispatch that event in our skeleton module this is where things
+1:00:37
+get pretty cool um on that render event i can go in
+1:00:43
+and i can add in um my skeleton module so this is just going to get this has a little helper
+1:00:50
+method to say go and grab the path right which is going to pull in this public directory in this assets folder
+1:00:56
+so there's custom modules folder public assets right and then i'm going to say i want you to
+1:01:02
+load at the bottom of that page my module css file so if i wanted to
+1:01:08
+restyle like everything about this window and all the outer iframes and all of
+1:01:13
+that stuff i can do that right here with my css file maybe someone wants a custom theme or maybe
+1:01:20
+we're tired of the bajillion different themes that we have in open emr and we only want two right
+1:01:26
+and so we could dump all the rest of them into their own modules that people can turn on or off
+1:01:32
+right and and then we have we also have the ability to add in the javascript here
+1:01:39
+right and again we don't need to go through that in detail but this is just a
+1:01:46
+sample of how you can add in javascript that's there
+1:01:51
+that won't um pollute the dom the the window object
+1:01:57
+it wraps it all inside of an anonymous function so but yeah so you can come in and that's
+1:02:03
+where we get that footer that when we log out and we log in
+1:02:09
+and we inspect our footer we have this here right down at the bottom
+1:02:16
+we have our body class and we have our script tags so this there's our style sheet that got
+1:02:23
+inserted there's our skeleton module and that javascript is actually going in
+1:02:29
+when it initializes it's creating a footer div giving it a class stuffing a
+1:02:34
+bunch of html in it appending it to the body right and then adding an event listener
+1:02:40
+that says close it when that button is clicked
+1:02:46
+i actually have written another module i was thinking of sharing it but i didn't have permission to share it just yet but
+1:02:51
+for telehealth we we bump a telehealth window right here that stays all the time
+1:02:57
+you know a minimum a video that you can that talks to the other person all the time here on the screen
+1:03:03
+right that is always available no matter what tabs you have open because it's here on the outer
+1:03:09
+layer we have similar events for here on the calendar if you want to
+1:03:15
+connect into the calendar and load up a javascript and a css file but i think that's my time as far as
+1:03:23
+going through this example i didn't get into the twig but it's available from the repository
+1:03:29
+if people want to look at that it's a little bit more complicated of an example
+1:03:34
+but we may cover that another day but what i want to do is
+1:03:39
+just briefly go through
+1:03:44
+first off um what do you need to do to actually push your module out
+1:03:50
+to people if you've gone in and you've created this great code that you want to share
+1:03:55
+and you want to you want it to get out to the broader community the things that you need to be able to
+1:04:00
+set up the autoloader and to be able to have it available is first set up your composer.json in
+1:04:07
+your module and if we look at mycomposer.json
+1:04:12
+that is has a couple key things you need to set your type of mod type of
+1:04:19
+composer package to be an open emr module this will
+1:04:24
+is used by this package that you'll need to install that you'll need to have inside your module called the module
+1:04:30
+installer plug-in and it will key off of this type that you have here and it will go through and it will
+1:04:37
+install your module directly inside of the interface modules custom modules
+1:04:43
+folder and then stuff whatever you have here in your psr-4 autoloader
+1:04:50
+into the autoloader for open emr right so you need to have this piece here and
+1:04:58
+this piece here and your psr4 if you're going to use the autoloader now you can use requires or
+1:05:04
+if you don't even want to use classes and you just want to do functional coding you don't want to do even any classes
+1:05:11
+you can use the event dispatcher just right here
+1:05:16
+and you can just start connecting your events here on
+1:05:23
+let me just grab an event dispatcher right here right
+1:05:28
+i can just if i don't even want to do classes i can just have this be my function my
+1:05:35
+func right
+1:05:42
+and i could have this be a render event and i can do
+1:05:52
+just straight up functional programming so you can do whatever you want if you want to insert a laminas framework you
+1:05:58
+can you would have to turn out laminas a laravel you'd have to fire off their
+1:06:04
+kernel that they have there and run it inside your module but you could run the laminate the the laravel framework
+1:06:10
+directly from in here so the sky is kind of the limit of what you have available
+1:06:15
+[Music] available for your modules my hope is that you'll share them
+1:06:22
+as we have a broader community and we can start sharing them way you can share them i mean you can just email people
+1:06:28
+different modules and files but um put it on packages
+1:06:33
+so create a packages account if you're not one actually we don't want packages.com we want packages.org
+1:06:39
+so if you package this is where compo all the composer libraries come from
+1:06:45
+and if you search for open emr right there's a couple there's a fax module
+1:06:51
+there's a couple other modules right here this module demo form we'd like to see more
+1:06:56
+there's my skeleton project that's available from the module um make sure to
+1:07:02
+use git tags because composer uses tags um to be able to pull your modules in
+1:07:08
+and then to install it is pretty pretty straightforward you just do a composer require
+1:07:14
+your package name you know whatever you name your package right here composer required so if i
+1:07:21
+wanted this instead of doing that git phone and i wanted to do it inside of my
+1:07:27
+open emr package i can just do a composer require
+1:07:34
+composer require and it will do that if i want a specific version obviously i can set what version
+1:07:41
+i want all right and that will install it into openmr
+1:07:48
+so that is i think that's that was a deep dive and also some general overview
+1:07:53
+i want to open it up for questions i know where we are definitely past the top of the hour
+1:08:00
+but i want to open it up for questions that people may have
+1:08:05
+about using modules if you don't have questions i have two questions that people submitted to me um
+1:08:11
+since they weren't going to be here but i'd rather go through your questions first rather than the people who didn't show up
+1:08:18
+um i've got a simple one and then maybe maybe a more complicated one but it it seems to me that every single module
+1:08:25
+starts with oe dash yeah so yep okay and and again and i take it
+1:08:31
+that stands for open emr yeah open emr you don't have to um but just by convention it makes it
+1:08:36
+easier to search okay okay and then the second question so for example let's suppose
+1:08:43
+if i wanted to create an event listener that checked for let's say a new appointment
+1:08:49
+and then you have the listener and then you could trigger something that would check that patient's eligibility
+1:08:55
+uh you know to make sure that they're insured or you know because because i think there is an eligibility
+1:09:00
+thing so so that would be like maybe one example of a module yeah yeah i mean i want to
+1:09:07
+do an elevate eligibility check right and you can do that with the
+1:09:13
+couple couple events um the appointment render event will get actually let's see i don't want to go
+1:09:22
+here appointment set event so this set event i would have named it
+1:09:28
+appointment i think you have to share your screen oh there's my screen oops sorry
+1:09:33
+okay thanks brady [Music] no not that screen
+1:09:44
+okay so the appointment set event gets fired if i remember correctly it gets fired every
+1:09:50
+time the event is added so that won't help you on eligibility though you have to go into the
+1:09:55
+eligibility module and set up your event dispatchers there oh yeah so
+1:10:02
+you're saying that if we go to eligibility right yeah there's not a it's a it's embedded
+1:10:08
+it's a separate script well i think this actually answers a question that someone else had um jerry
+1:10:14
+where do you remember the name of that script where is it at um
+1:10:21
+no before we get off the call type yeah um
+1:10:26
+because let's see if we wanted to i'm just saying there is there is a hook in maine
+1:10:34
+php for the report to the demographics widget
+1:10:43
+that's probably where you're going to hook up the button
+1:10:48
+add it as a button i mean there's there's a button there you just you you probably uh set up the
+1:10:55
+event dispatcher for the button or the routine that's there to
+1:11:03
+generate the report but you can actually go out
+1:11:09
+if eligibility set up and grab eligibility on a specific patient and
+1:11:15
+get the report for that patient then it gets populated here in the demographics eligibility tab
+1:11:21
+under insurance that's where i know if we if i knew the name of it i would
+1:11:27
+actually go in and it's in maine no it's in demographics.php i believe
+1:11:33
+demographics.php let's go to demographics.php and it's hard for me to
+1:11:41
+see let's see
+1:11:47
+so let's see um let's just take an example what i want
+1:11:53
+to do is talk about what if i need to tie into something or i want to go in um
+1:11:59
+and listen to an event right let's say for example get employer data
+1:12:05
+right common function um you say i need i know we're talking about eligibility
+1:12:11
+but i want to say that that i need an event here right i need to do something
+1:12:17
+um and modify this given this given name from employer data or the this query
+1:12:24
+before it goes out right if i wanted to
+1:12:29
+um if i was just hacking for code right then i could come in and just change this query if i wanted it to be an event
+1:12:36
+there's a couple things that i can do so one is first just just wire things up
+1:12:42
+so that i'm i know i understand what i'm getting and what i'm doing um before so i'm gonna do here
+1:12:48
+i'm going to grab the event dispatcher which is in global
+1:12:54
+kernel get event dispatcher
+1:12:59
+right and i'm going to have it dispatch an event in this case i want it to be my
+1:13:07
+i'm just going to do something generic while i'm still thinking through employer.data.post
+1:13:14
+or something like that dot filter i'm going to call it that way
+1:13:19
+and i'm going to send it a new generic event which is something that symphony gives
+1:13:25
+us and i'm just going to give it a sequel give it the
+1:13:31
+the sequel piece as the thing right so this this piece i've gone in and i've
+1:13:38
+modified core this is not how i want it to be but if i if i did want to leave it this way
+1:13:44
+i'd submit a full request and say now i can listen to this event well this isn't my end result but i would be able to
+1:13:50
+then say okay let me make sure that that's working for me i'm going to come over here to my
+1:13:55
+event dispatcher and let's do it inside of bootstrap
+1:14:02
+subscribe subscribe to events
+1:14:08
+i'm not going to make a new function here i'm just going to go event dispatcher
+1:14:13
+add listener right and my event name here is
+1:14:18
+whatever we call that employer data filters
+1:14:26
+and i wanted to give it a function so i'm going to give it my filter employer data
+1:14:42
+so now i say okay well that's connected filter employer data now i want to
+1:14:49
+modify that query so i'm going to grab [Music]
+1:14:54
+make sure i um that here the generic event has a subject which is
+1:15:01
+what it takes in the first argument and i'm just going to say my sequel is this right
+1:15:07
+so now i can come in and i can change this to be whatever i wanted it to be right i
+1:15:14
+can i can change this to b um here
+1:15:33
+maybe i need the patient data as part of this employer data or something like that
+1:15:38
+right i've already got the kid there maybe we'll get the f name
+1:15:43
+and patient data dot l name from employer data right
+1:15:50
+and so on so i don't need to go through all that example but i can come in here i've got that modified i'm now going to
+1:16:00
+oh i forgot about jamaica then so we're going to leave that to be
+1:16:05
+[Music] but this is what i get when i'm doing coding on the fly
+1:16:12
+i'm going to leave that and put this as the argument here
+1:16:19
+so subject is something usually you can use for page name in this case it would be patient.inc or
+1:16:25
+whatever is that this thing is about and we're gonna pass in the argument because i need to
+1:16:30
+be able to modify the value of the event so here i'm going to do
+1:16:36
+get argument that argument
+1:16:44
+my new modified value and i'll return to that
+1:16:49
+so now i've gone through and i've changed what that value is you know and i had a developer who said who asked
+1:16:56
+me like how do i make this generic like i mean how do i make sure that i'm not just creating you know tightly coupled
+1:17:02
+code in my module you know what what how do i know that i make it whether it's going to be a generic enough event right
+1:17:10
+because we we when we review a pull request we particularly don't aren't going to like you using generic event
+1:17:16
+but it works for when you're testing things out and trying to figure out is this going to work for modifying core
+1:17:22
+but our goal in reviewing your code when you submit an event of something you want to change you're going to say what
+1:17:28
+is the other use cases here what other things are you going to want to do or other people are going to want to do
+1:17:36
+maybe we don't want you modifying the the full query
+1:17:41
+so maybe we need to send in not the query here but send in this given
+1:17:48
+value and let you choose the particular columns right here for given is that
+1:17:53
+going to work right what am i going to name this event in this case i would probably name it
+1:18:00
+um employer data filter right
+1:18:06
+to give it the name of the event in my pull request right
+1:18:11
+so those are the types of things as we're trying to think about okay so i'm going in and now i want i need this
+1:18:16
+event i need to modify something in core um how do i do that and
+1:18:23
+how do i then get it into the codebase and the the key goal there is just thinking about
+1:18:28
+who else will use this who else would want to modify it what kind of thing how do i name it and then that typically
+1:18:35
+goes in fairly quick into the code base just because this doesn't use up that
+1:18:40
+much um processing um if there's security risk or things like that we may have some questions
+1:18:46
+like passing around password you know but that was the last thing that i wanted to so so i hope that covers
+1:18:53
+everything um real real quick daniel for that if you're looking at eligibility there in
+1:19:00
+demographics.php around line 954.
+1:19:09
+the function call is to the edi 270.php
+1:19:16
+called request eligible transaction right that'll create that'll go out and do the
+1:19:22
+transaction and then it's got there's another function called called show eligibility
+1:19:27
+information that will give you the report for that transaction
+1:19:33
+so you can do all your hooks right there i think yeah so you could add it i mean either
+1:19:39
+here or you could add it inside of this class um i think if you added it inside the class that'd be better that's more
+1:19:45
+generic um because this class wherever it's going to be used you can then tie into your event
+1:19:55
+i don't think it is i don't know it's been a while stephen may have made it to class
+1:20:00
+yeah it looks like it's fine all right yeah um so so these are things where our hope
+1:20:07
+is that we could have you know several dozen hundred maybe a couple hundred events
+1:20:13
+we'll have to organize them get better at organizing all of them but things that you can tie into
+1:20:19
+via open emr right so any other questions at this point
+1:20:28
+i noticed that the event was being recorded will it be posted i i was
+1:20:33
+doing quite a couple of things so i wasn't recording right now yep all right
+1:20:38
+great thank you yeah it would be very very useful to be able to review this because you want to
+1:20:44
+stop every so often and absorb what's going on and so on yeah yeah there is a lot
+1:20:49
+great job thank you yeah happy to help i missed last week is that one also
+1:20:56
+recorded somewhere that one is recorded we got to do a little bit post recording cleanup there are some
+1:21:02
+things that needed to be removed from the call so
+1:21:08
+so when we do that we'll get that out hey guys i have two questions
+1:21:14
+hey yeah yeah so first of all thank you very much steven i was able to install your
+1:21:20
+skeletal model on friday successfully uh so first question is
+1:21:26
+as i see uh one option is to subscribe to events but if i don't need to
+1:21:31
+subscribe to events because my goal is to review patients uh last visits and encounters
+1:21:38
+and then can take dates up pass it to machine learning get data from machine learning
+1:21:44
+back to the system what's the best approach to uh
+1:21:49
+access these entities and data should they use api or maybe there is any other
+1:21:56
+approaches better here so you're saying you want to be able to
+1:22:01
+access the end user's information right yeah yeah like the patient data and
+1:22:08
+things like that yeah are you going to be accessing it outside of open emr or will they log in into
+1:22:15
+open emr and you need to do something with the data uh yeah i won't do anything with data i
+1:22:23
+will just analyze it and create let's say new visit and put some data there because i don't want to modify any data
+1:22:31
+right and now i'm creating the model and my system are working using python but
+1:22:37
+it's another story let's assume it's a separate model which do some calculations with patient data and then
+1:22:44
+create new uh records and database let's say a new visit or something like that
+1:22:49
+yeah so i mean if you're going to be working inside of open emr um as far as creating data
+1:22:56
+you want to pull the data and create the data you can do that because i mean you can do that as a module you can do that
+1:23:03
+as a smart app you can do that as a through the api
+1:23:08
+um there's many different ways that that you can do that
+1:23:14
+yeah i mean inside inside the model if i i think now the best approach and you
+1:23:19
+suggest to do it inside the model so using this uh in model
+1:23:25
+should i still use api or there's a better approach and we can discuss it later i can ask on forum this question
+1:23:33
+i mean i guess the question is is are is an end user like is your whoever you're building this for going to come
+1:23:39
+in and review the data and look at it yeah then then you're gonna need to at least
+1:23:46
+do something with with uh inside the module and then you can use any of the services
+1:23:53
+as a mod as the module or if it's easier and a cleaner approach to you you have the api
+1:23:59
+tomato tomato whatever if it's easier for you to work with rest apis then you can use the rest api if
+1:24:06
+it's not then you can use the services we have the patient service we have user service we have the vital service okay
+1:24:13
+all those services so yeah okay that's clear yeah thank you
+1:24:23
+yeah brady i know we're kind of at the end where we probably need to be taken off is there any any other questions
+1:24:30
+thank you for holding this uh this is gonna be really really helpful and i look forward to next week as well
+1:24:36
+yeah well we won't be so so robert jumped the gun he wanted to have a presentation before we're we're just doing this once a month
+1:24:42
+so okay but you're welcome to join us on the call it becomes an open call at that point we do all the other weeks of the
+1:24:49
+month this is an open call and we talk about all things tech related you know with open email
+1:24:54
+so same time um and we're hoping if any of you have
+1:25:00
+things that you wanted to present on or talk about with open emr um i'm very happy to include you in in a
+1:25:06
+lightning talk presentation um maybe it's something that you're doing with your company that you want to like
+1:25:12
+say hey this is some cool thing that we've done and we want to show it off or if you want to just talk about a
+1:25:18
+topic we'd love to have community involvement and so
+1:25:23
+i guess we call it call for proposals maybe request for proposals whatever it's called
+1:25:28
+so just just uh let me know or message me on the forum
+1:25:35
+that'd be great okay if there's nothing else i'm gonna hit stop recording um i guess i did have
+1:25:41
+if you had one other question from somebody who had emailed it to us so someone
+1:25:47
+asked how's this going to affect performance i already went through and let me let me um let me share my
+1:25:55
+screen just one last time so somebody had submitted this question so
+1:26:01
+someone says if we have hundreds of these events firing like are we wasting resources until something
+1:26:07
+is listening is this why systems like wordpress are so slow that was one of the questions that uh someone emailed me about
+1:26:14
+and i would say that um if you're concerned about performance
+1:26:19
+there's a couple things you need to you need to pay attention to when you're working with a module one is
+1:26:26
+be very careful when you're doing network requests so anytime you have to do an external
+1:26:31
+api call that's outside of the emr uh open emr or
+1:26:36
+even in open emr you're going to slow down because it runs on every page request if you're doing a network
+1:26:43
+request on every page request you're going to slow things down if
+1:26:48
+a better way to approach that is to say maybe i do a net if if it's data that can be cached maybe i do that request
+1:26:54
+every five minutes or maybe i store it in the database and i cache it um so the biggest thing to watch out for
+1:26:59
+is network requests next biggest thing is database requests so if you can cache
+1:27:04
+the data and the constructor of your module if you're going to be using it throughout the rest of your module on
+1:27:10
+multiple events that are happening that can be better or lazy look lazy
+1:27:15
+load it and then cache it inside the module you know inside of a variable inside a class
+1:27:21
+that's a good way for optimizing performance [Music] another thing is to use the redis server
+1:27:27
+if your openmr is installed with redis you can store variables in the redis cache and store data there instead of hitting
+1:27:34
+the database you usually get a typically a 10 to 30 millisecond
+1:27:40
+response versus sometimes a 300 millisecond or even one second response when you're hitting
+1:27:46
+large data data stream so storing that in um and redis can be a
+1:27:51
+massive improvement so those are those are things that if the more we have modules
+1:27:58
+and the more that you do at the database you can slow things down if you get to hundreds
+1:28:05
+or thousands of modules that are interacting but when there's only like 20 or 30
+1:28:11
+modules installed on a system and performance is going to be pretty negligible if you're not doing an
+1:28:17
+external network request so i mean and if there's no listeners
+1:28:22
+it's microseconds i mean it's gonna it checks if the array of listeners is empty and then this
+1:28:28
+returns so you could have hundreds of these and you'd only have a few milliseconds
+1:28:34
+of additional performance i think that's what the core of that question was about
+1:28:40
+yeah having all the listeners admit once bubbles comes up and
+1:28:45
+just sitting there doing nothing yeah yeah and you can have hundreds or i would i would argue i haven't
+1:28:51
+benchmarked this i would say you could have thousands thousands of listeners and it's going to
+1:28:57
+be pretty negligible for performance yeah that was i had that question a couple months ago and looked into it
+1:29:06
+like you say yep okay um if any if anyone has last
+1:29:12
+call for questions otherwise i'm going to stop the recording and then um we'll bid you for well or if anyone else
+1:29:18
+wanted to stay on the call we could spend a few minutes after after i've turned off the recording so
+1:29:24
+but any other questions
+1:29:33
+okay i will stop recording um
