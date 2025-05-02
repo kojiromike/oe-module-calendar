@@ -1,7 +1,7 @@
 {
     "name": "opencoreemr/oe-module-calendar",
     "description": "Connect OpenEMR to OpenCoreEMR Calendar",
-    "type": "composer-plugin",
+    "type": "openemr-module",
     "require": {
         "openemr/oe-module-installer-plugin": "^0.1.5",
         "php": ">=8.1",
