@@ -47,7 +47,7 @@ module_name/
 ├── info.txt                     # Human-readable name of your module
 ├── openemr.bootstrap.php        # Entry point for your module
 ├── table.sql or install.sql     # SQL for database installation
-├── composer.json                # Module configuration 
+├── composer.json                # Module configuration
 └── src/                         # Your module code
 ```
 
@@ -116,7 +116,7 @@ CREATE TABLE IF NOT EXISTS `mod_my_custom_module` (
 To properly distribute your module and set up the autoloader, create a `composer.json` file with the following key elements:
 
 1. Set the type to "openemr-module"
-2. Include the module-installer plugin 
+2. Include the module-installer plugin
 3. Configure the PSR-4 autoloader for your namespace
 
 Example:
@@ -155,11 +155,11 @@ To add a configuration option to the globals page, listen for the `globals.load`
 $eventDispatcher->addListener('globals.load', function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
     // Get the globals service from the event
     $globalsService = $event->getSubject();
-    
+
     // Create a section for your module's settings
     $sectionName = 'My Module';
     $globalsService->createSection($sectionName, 'Portal');
-    
+
     // Add a text setting
     $globalsService->appendToSection(
         $sectionName,
@@ -169,7 +169,7 @@ $eventDispatcher->addListener('globals.load', function (\Symfony\Component\Event
         '',
         'This is a description of my setting'
     );
-    
+
     // Add a boolean/checkbox setting
     $globalsService->appendToSection(
         $sectionName,
@@ -189,7 +189,7 @@ To add an entry to the OpenEMR menu, listen for the `menu_update` event:
 ```php
 $eventDispatcher->addListener('menu_update', function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
     $menu = $event->getSubject();
-    
+
     // Add menu item under the "Modules" main menu
     $menuItem = new \stdClass();
     $menuItem->requirement = 0;
@@ -198,7 +198,7 @@ $eventDispatcher->addListener('menu_update', function (\Symfony\Component\EventD
     $menuItem->label = 'My Module';
     $menuItem->url = '/interface/modules/custom_modules/my_module/public/index.php';
     $menuItem->children = [];
-    
+
     // Find the "Modules" menu
     foreach ($menu as $item) {
         if ($item->menu_id == 'modimg') {
@@ -217,10 +217,10 @@ To add JavaScript or CSS to OpenEMR pages, listen for the `core.body.render` eve
 $eventDispatcher->addListener('core.body.render', function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
     // Get module directory path
     $modulePath = '/interface/modules/custom_modules/my_module';
-    
+
     // Add CSS file
     echo "<link rel='stylesheet' href='" . $modulePath . "/public/assets/css/style.css' />\n";
-    
+
     // Add JavaScript file
     echo "<script src='" . $modulePath . "/public/assets/js/script.js'></script>\n";
 });
@@ -234,7 +234,7 @@ To override a template in OpenEMR, you can replace Twig templates:
 $eventDispatcher->addListener('globals.load', function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
     // Get the globals service
     $globalsService = $event->getSubject();
-    
+
     // Create module section and enable template override
     $sectionName = 'My Module';
     $globalsService->createSection($sectionName, 'Portal');
@@ -269,17 +269,37 @@ $eventDispatcher->addListener('globals.load', function (\Symfony\Component\Event
 
 ## Installing and Activating Your Module
 
-1. **Place your module in the custom_modules directory**
-   Put your module files in `interface/modules/custom_modules/your_module_name/`
+### Making Your Module Installable via Composer
 
-2. **Register your module**
-   Go to Modules > Manage Modules in OpenEMR and find your module under the "Unregistered" tab. Click "Register" to make OpenEMR aware of your module.
+For development and early-stage modules, you can use Composer's local path repository feature:
 
-3. **Install your module**
-   After registration, find your module in the "Registered" tab and click "Install" to set up any database tables or data.
+1. **Prepare Your Module**
+   - Make sure your `composer.json` file is properly configured as described in Step 4 above
+   - Ensure the "type" is set to "openemr-module"
+   - Include the dependency on "openemr/module-installer-plugin"
 
-4. **Enable your module**
-   After installation, click "Enable" to activate your module so it runs on page loads.
+2. **Add as a Local Repository**
+   - In your OpenEMR installation, add your module as a local repository:
+   ```bash
+   composer config repositories.your-module-name path /path/to/your/module
+   ```
+   - This tells Composer to look for this package in the specified local directory
+
+3. **Install the Module**
+   - Install the module:
+   ```bash
+   composer require yourname/your-module-name:@dev
+   ```
+   - The `@dev` suffix tells Composer to use the development version
+   - The module-installer-plugin will automatically place your module in the correct directory
+
+Note: Creating a Git repository and publishing to Packagist for wider distribution are options for more mature modules, but those topics are not covered in this document.
+
+4. **Register, Install, and Enable**
+   - Go to Modules > Manage Modules in OpenEMR
+   - Find your module under the "Unregistered" tab and click "Register"
+   - After registration, find your module in the "Registered" tab and click "Install"
+   - Finally, click "Enable" to activate your module so it runs on page loads
 
 ## Setting Up Autoloading for Development
 
