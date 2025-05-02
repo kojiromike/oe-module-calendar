@@ -78,8 +78,24 @@ Example bootstrap file:
  * @license https://github.com/openemr/openemr/blob/master/LICENSE GNU General Public License 3
  */
 
+namespace Your\Namespace;
+
+
 // Note: The event dispatcher is automatically in scope in this context
 // No need to require it
+
+/**
+ * @global OpenEMR\Core\ModulesClassLoader $classLoader
+ *
+ * Registers a namespace if it doesn't already exist in the autoloader.
+ *
+ * This function is intended for scenarios where the module is installed manually
+ * without using Composer. It provides a fallback autoloading mechanism.
+ *
+ * Note: This does nothing when the module is properly configured with Composer,
+ * which is the recommended way to install and use modules.
+ */
+$classLoader->registerNamespaceIfNotExists(__NAMESPACE__ . '\\', __DIR__ . DIRECTORY_SEPARATOR . 'src');
 
 // Subscribe to events
 $eventDispatcher->addListener(
@@ -89,6 +105,9 @@ $eventDispatcher->addListener(
     }
 );
 ```
+
+ Note: You may see `$classLoader->registerNamespaceIfNotExists()` in some examples. This is not necessary when the module is registered with the composer autoloader, as the namespace will be automatically registered through the composer's PSR-4 autoloading mechanism.
+
 
 ### Step 3: Creating the SQL Installation File
 
@@ -147,12 +166,19 @@ Example:
 
 The primary way modules interact with OpenEMR is through the event system. When something happens in OpenEMR, it fires an event that your module can listen for and respond to.
 
+### Working with the Event System
+
+OpenEMR uses a robust event system based on Symfony's EventDispatcher component. Instead of using string literals for event names, you should always use the constants defined in the event classes for better type safety and maintainability.
+
 ### Example: Adding a Global Setting
 
-To add a configuration option to the globals page, listen for the `globals.load` event:
+To add a configuration option to the globals page, listen for the `GlobalsInitializedEvent::EVENT_HANDLE` event:
 
 ```php
-$eventDispatcher->addListener('globals.load', function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
+// Always import the event classes you're using
+use OpenEMR\Events\Globals\GlobalsInitializedEvent;
+
+$eventDispatcher->addListener(GlobalsInitializedEvent::EVENT_HANDLE, function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
     // Get the globals service from the event
     $globalsService = $event->getSubject();
 
@@ -184,10 +210,12 @@ $eventDispatcher->addListener('globals.load', function (\Symfony\Component\Event
 
 ### Example: Adding a Menu Item
 
-To add an entry to the OpenEMR menu, listen for the `menu_update` event:
+To add an entry to the OpenEMR menu, listen for the `MenuEvent::MENU_UPDATE` event:
 
 ```php
-$eventDispatcher->addListener('menu_update', function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
+use OpenEMR\Menu\MenuEvent;
+
+$eventDispatcher->addListener(MenuEvent::MENU_UPDATE, function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
     $menu = $event->getSubject();
 
     // Add menu item under the "Modules" main menu
@@ -211,10 +239,12 @@ $eventDispatcher->addListener('menu_update', function (\Symfony\Component\EventD
 
 ### Example: Adding JavaScript and CSS to Pages
 
-To add JavaScript or CSS to OpenEMR pages, listen for the `core.body.render` event:
+To add JavaScript or CSS to OpenEMR pages, listen for the `RenderEvent::EVENT_BODY_RENDER_POST` event:
 
 ```php
-$eventDispatcher->addListener('core.body.render', function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
+use OpenEMR\Events\Main\Tabs\RenderEvent;
+
+$eventDispatcher->addListener(RenderEvent::EVENT_BODY_RENDER_POST, function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
     // Get module directory path
     $modulePath = '/interface/modules/custom_modules/my_module';
 
@@ -231,7 +261,9 @@ $eventDispatcher->addListener('core.body.render', function (\Symfony\Component\E
 To override a template in OpenEMR, you can replace Twig templates:
 
 ```php
-$eventDispatcher->addListener('globals.load', function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
+use OpenEMR\Events\Globals\GlobalsInitializedEvent;
+
+$eventDispatcher->addListener(GlobalsInitializedEvent::EVENT_HANDLE, function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
     // Get the globals service
     $globalsService = $event->getSubject();
 
@@ -252,6 +284,25 @@ $eventDispatcher->addListener('globals.load', function (\Symfony\Component\Event
 // For example, to override the login page:
 // module_name/templates/login/login.html.twig
 ```
+
+### Common OpenEMR Events
+
+Here are some common events you may want to listen for in your modules:
+
+| Event Constant | Description |
+|----------------|-------------|
+| `GlobalsInitializedEvent::EVENT_HANDLE` | Fired when global settings are initialized, use to add your module settings |
+| `MenuEvent::MENU_UPDATE` | Fired when building the main menu, use to add your module's menu entries |
+| `RenderEvent::EVENT_BODY_RENDER_PRE` | Fired before the main body content is rendered |
+| `RenderEvent::EVENT_BODY_RENDER_POST` | Fired after the main body content is rendered, ideal for adding JS/CSS |
+| `PatientMenuEvent::MENU_UPDATE` | Fired when building the patient menu |
+| `AppointmentRenderEvent::RENDER_JAVASCRIPT` | Fired when rendering appointment JavaScript |
+| `PatientCreatedEvent::EVENT_HANDLE` | Fired when a new patient is created |
+| `PatientUpdatedEvent::EVENT_HANDLE` | Fired when a patient record is updated |
+| `UserCreatedEvent::EVENT_HANDLE` | Fired when a new user is created |
+| `RestApiCreateEvent::EVENT_HANDLE` | Fired when creating REST API routes |
+
+For a complete list of available events, you can refer to the event classes in the OpenEMR codebase or use the events.md document.
 
 ## Best Practices for Module Development
 
@@ -301,32 +352,183 @@ Note: Creating a Git repository and publishing to Packagist for wider distributi
    - After registration, find your module in the "Registered" tab and click "Install"
    - Finally, click "Enable" to activate your module so it runs on page loads
 
-## Setting Up Autoloading for Development
+## What Goes in the `src` Directory and How Code Gets Called
 
-For development purposes, if you need to set up the autoloader for your module:
+After your module is installed and enabled in OpenEMR, the next question is how your code in the `src` directory actually gets executed. Let's examine this process using the custom module skeleton as an example.
 
-1. Edit the main OpenEMR `composer.json` file
-2. Add your module's namespace to the autoload section:
+### The `src` Directory Structure
 
-```json
-"autoload": {
-    "psr-4": {
-        "OpenEMR\\": "src",
-        "OpenEMR\\Modules\\CustomModuleName\\": "interface/modules/custom_modules/your_module_name/src"
+The `src` directory contains the main PHP classes for your module. Looking at the skeleton module structure:
+
+```
+src/
+├── Bootstrap.php       # Primary entry point for your module
+├── ModuleConfig.php    # Configuration for your module
+└── ...                 # Other support classes
+```
+
+### The Bootstrap Process
+
+When the OpenEMR system loads your module, it follows this sequence:
+
+1. First, the `openemr.bootstrap.php` file in your module's root directory is called on every page load that includes `global.php` (which is most pages in OpenEMR)
+
+2. The `openemr.bootstrap.php` file typically initializes your module by including the `src/Bootstrap.php` class
+
+3. The `src/Bootstrap.php` class is where you configure:
+   - Event listeners that connect to OpenEMR's event system
+   - Menu items that should appear in OpenEMR's interface
+   - Global settings your module needs
+   - API endpoints your module provides
+   - Other integrations with the OpenEMR system
+
+### Example Bootstrap Class
+
+The Bootstrap class is the heart of your module. It defines how your module integrates with OpenEMR through event listeners. Here's a simplified example based on the skeleton module:
+
+```php
+namespace OpenEMR\Modules\CustomModuleName;
+
+use OpenEMR\Common\Logging\SystemLogger;
+use OpenEMR\Events\Globals\GlobalsInitializedEvent;
+use OpenEMR\Events\Main\Menu\MainMenuRole;
+use OpenEMR\Events\RestApiExtend\RestApiResourceServiceEvent;
+use OpenEMR\Menu\MenuEvent;
+use OpenEMR\Services\Globals\GlobalSetting;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+
+class Bootstrap
+{
+    /**
+     * @var EventDispatcherInterface The event dispatcher object
+     */
+    private $eventDispatcher;
+
+    /**
+     * @var SystemLogger
+     */
+    private $logger;
+
+    public function __construct(EventDispatcherInterface $eventDispatcher)
+    {
+        $this->eventDispatcher = $eventDispatcher;
+        $this->logger = new SystemLogger();
+    }
+
+    public function subscribeToEvents()
+    {
+        // Add global settings
+        $this->eventDispatcher->addListener(GlobalsInitializedEvent::EVENT_HANDLE, [$this, 'addGlobalSettings']);
+
+        // Add menu items
+        $this->eventDispatcher->addListener(MenuEvent::MENU_UPDATE, [$this, 'addMenuItems']);
+
+        // Add API endpoints
+        $this->eventDispatcher->addListener(RestApiResourceServiceEvent::EVENT_HANDLE, [$this, 'addApiEndpoints']);
+    }
+
+    // Method that adds global settings
+    public function addGlobalSettings(GlobalsInitializedEvent $event)
+    {
+        $service = $event->getGlobalsService();
+        $section = "Module Name";
+        $service->createSection($section, "Module Description");
+
+        // Add settings to your section
+        $setting = new GlobalSetting(
+            'module_enable_feature',
+            'bool',                // Field type
+            '0',                   // Default value
+            'Enable Feature X',    // Title
+            'Enables feature X in the module' // Description
+        );
+        $service->appendToSection($section, $setting);
+    }
+
+    // Method that adds menu items
+    public function addMenuItems(MenuEvent $event)
+    {
+        $menu = $event->getMenu();
+
+        // Add your module menu under the Modules menu
+        $menuItem = new \stdClass();
+        $menuItem->requirement = 0;
+        $menuItem->target = '';
+        $menuItem->menu_id = 'mod0';
+        $menuItem->label = 'My Module';
+        $menuItem->url = '/interface/modules/custom_modules/my-module/public/index.php';
+        $menuItem->children = [];
+
+        // Find the "Modules" menu
+        foreach ($menu as $item) {
+            if ($item->menu_id == 'modimg') {
+                $item->children[] = $menuItem;
+                break;
+            }
+        }
+    }
+
+    // Method that adds API endpoints
+    public function addApiEndpoints(RestApiResourceServiceEvent $event)
+    {
+        $event->addResource('custom-module-name', '\OpenEMR\Modules\CustomModuleName\RestControllers\RestApiController');
     }
 }
 ```
 
-3. Run `composer dump-autoload` to regenerate the autoloader
+### How Your Module Gets Initialized
 
-## Conclusion
+1. The OpenEMR module system loads each active module on every page load where `global.php` is included
 
-Creating custom modules for OpenEMR allows you to extend functionality without modifying core code. By following this guide, you can create, install, and distribute your own modules for OpenEMR that work with the event system to enhance the platform while maintaining compatibility with future OpenEMR updates.
+2. For custom modules, it runs the `openemr.bootstrap.php` file which typically looks like:
 
-For more complex modules, you might want to explore the Laminas module framework, which offers additional features for larger-scale development projects.
+```php
+<?php
+// This bootstrapper is loaded for every page load when the module is enabled
 
-## Resources
+// The event dispatcher is already in scope at this point
+use OpenEMR\Modules\CustomModuleName\Bootstrap;
 
-- OpenEMR Skeleton Module: https://github.com/openemr/oe-module-custom-skeleton
-- OpenEMR Module Installer: https://packagist.org/packages/openemr/module-installer-plugin
-- OpenEMR Official Website: https://www.open-emr.org
+// Include autoloader if needed (but usually Composer's autoloader is already loaded)
+// Instantiate the main Bootstrap class of your module
+$bootstrap = new Bootstrap($eventDispatcher);
+
+// Subscribe to OpenEMR events
+$bootstrap->subscribeToEvents();
+```
+
+### Key Classes and Methods You Can Implement
+
+In your `src` directory, you typically have these key components:
+
+1. **Bootstrap.php** - The main entry point for your module that subscribes to events
+2. **Controllers** - Classes that handle specific UI or API endpoints
+3. **Models** - Classes that represent your data structures
+4. **Services** - Business logic classes for your module
+5. **Views** - Templates and UI components
+
+### Working with Events
+
+The event system is how your module integrates with OpenEMR. Common events you might subscribe to:
+
+1. **GlobalsInitializedEvent** - To add global settings for your module
+2. **MenuEvent** - To add menu items to the OpenEMR interface
+3. **RestApiResourceServiceEvent** - To add API endpoints
+4. **PageHeadEvent** - To add JavaScript or CSS to pages
+5. **PatientFilterEvent** - To filter patient data
+6. Various other clinical, billing, and system events
+
+### Additional Files in the Module
+
+Besides the `src` directory, your module might include:
+
+1. **public/** - Public-facing files that can be accessed directly by the browser
+2. **templates/** - Template files for your views
+3. **assets/** - JavaScript, CSS and other assets
+4. **sql/** - SQL files for database operations
+5. **tests/** - Unit and integration tests
+
+Your module's code in the `src` directory is only executed when:
+1. The module is enabled
+2. An event your module listens for is triggered
+3. A page, API endpoint, or other entry point specific to your module is accessed

@@ -7,9 +7,12 @@
  * @license https://github.com/openemr/openemr/blob/master/LICENSE GNU General Public License 3
  */
 
+use OpenEMR\Events\Globals\GlobalsInitializedEvent;
+use OpenEMR\Menu\MenuEvent;
+
 // The event dispatcher is automatically in scope in this context
 $eventDispatcher->addListener(
-    'globals.load',
+    GlobalsInitializedEvent::EVENT_HANDLE,
     function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
         // Create a section for your module's settings
         $globalsService = $event->getSubject();
@@ -38,7 +41,7 @@ $eventDispatcher->addListener(
 );
 
 // Add menu item for calendar management
-$eventDispatcher->addListener('menu_update', function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
+$eventDispatcher->addListener(MenuEvent::MENU_UPDATE, function (\Symfony\Component\EventDispatcher\GenericEvent $event) {
     $menu = $event->getSubject();
 
     // Add menu item under the "Modules" main menu
